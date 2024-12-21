@@ -1,0 +1,30 @@
+---
+import { BRAND } from "astro:schema";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const articles = await getCollection('blog');
+
+const pageTitle = "Blog";
+const pageDesc = "This is the blog page";
+---
+
+<Layout title={pageTitle} desc={pageDesc}>
+  {articles.map((article) => (
+      <article>
+        <h3>{article.data.title}</h3>
+        <em>{article.data.author}</em>
+        <div>
+          <a href={`/blog/${article.data.id}`}>Read more...</a>
+        </div>
+      </article>
+      <hr />
+    )
+  )};
+</Layout>
+
+<style>
+  article {
+    margin: 1rem 0;
+  }
+</style>
